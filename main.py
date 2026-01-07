@@ -3,7 +3,7 @@ from OpenGL.GLU import *
 from OpenGL.GLUT import *
 import texture
 
-from camera import apply_camera, move_camera, rotate_camera, focus_camera, FOCUS_POINTS
+from camera import apply_camera, move_camera, rotate_camera, focus_camera, FOCUS_POINTS, mouse_look
 from lighting import setup_lighting, toggle_day_night, toggle_lamp
 from texture import init_texture, draw_room, draw_rug 
 from objects import draw_bed, draw_table, draw_window, draw_door, draw_poster, draw_table_lamp, draw_curtain, draw_ceiling_lamp, draw_plant, draw_workstation, draw_bookshelf, draw_trash_bin 
@@ -16,6 +16,9 @@ def init():
     glClearColor(0.15, 0.15, 0.18, 1.0)
     glEnable(GL_DEPTH_TEST)
     init_texture()
+    
+    glutPassiveMotionFunc(mouse_look)
+    glutSetCursor(GLUT_CURSOR_NONE)
 
 
 def display():

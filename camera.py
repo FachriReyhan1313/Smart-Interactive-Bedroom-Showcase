@@ -123,6 +123,43 @@ FOCUS_POINTS = {
 
 
 # =====================
+# CAMERA ROTATION (MOUSE)
+# =====================
+last_x = None
+last_y = None
+mouse_sensitivity = 0.15
+ignore_warp = False
+
+def mouse_look(x, y):
+    global last_x, last_y, yaw, pitch, ignore_warp
+
+    if ignore_warp:
+        ignore_warp = False
+        return
+
+    w = glutGet(GLUT_WINDOW_WIDTH)
+    h = glutGet(GLUT_WINDOW_HEIGHT)
+    cx = w // 2
+    cy = h // 2
+
+    if last_x is None:
+        last_x, last_y = x, y
+        return
+
+    dx = x - cx
+    dy = y - cy
+
+    yaw   += dx * mouse_sensitivity
+    pitch -= dy * mouse_sensitivity
+
+    # CLAMP PITCH (biar ga kebalik)
+    pitch = max(-89.0, min(89.0, pitch))
+
+    ignore_warp = True
+    glutWarpPointer(cx, cy)
+
+
+# =====================
 # HELPER
 # =====================
 def deg2rad(d):
@@ -314,3 +351,5 @@ def rotate_camera(key):
         pitch -= ROT_SPEED
 
     pitch = clamp(pitch, -89.0, 89.0)
+
+    
