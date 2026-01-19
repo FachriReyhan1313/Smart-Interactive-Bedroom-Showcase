@@ -145,7 +145,6 @@ def keyboard(key, x, y):
 
     if key == b'\x1b': 
         paused = not paused
-        camera.paused = paused
         return
 
     if paused:
