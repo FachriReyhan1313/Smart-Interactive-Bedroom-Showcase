@@ -1,17 +1,31 @@
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
-import texture
-import camera
 
-from camera import apply_camera, move_camera, rotate_camera, focus_camera, FOCUS_POINTS, mouse_look
-from lighting import setup_lighting, toggle_day_night, toggle_lamp
-from texture import init_texture, draw_room, draw_rug 
-from objects import draw_bed, draw_table, draw_window, draw_door, draw_poster, draw_table_lamp, draw_curtain, draw_ceiling_lamp, draw_plant, draw_workstation, draw_bookshelf, draw_trash_bin, draw_central_ac, draw_poster_2
-
-from wardrobe import draw_wardrobe, toggle_wardrobe, update_wardrobe
-from clock3d import draw_clock
-from utils import draw_text, draw_hud_bg
+from smart_bedroom.core.camera import apply_camera, move_camera, rotate_camera, focus_camera, FOCUS_POINTS, mouse_look
+from smart_bedroom.core.lighting import setup_lighting, toggle_day_night, toggle_lamp
+from smart_bedroom.render import texture as tex
+from smart_bedroom.objects import (
+    draw_bed,
+    draw_table,
+    draw_window,
+    draw_door,
+    draw_poster,
+    draw_poster_2,
+    draw_table_lamp,
+    draw_curtain,
+    draw_ceiling_lamp,
+    draw_plant,
+    draw_workstation,
+    draw_bookshelf,
+    draw_trash_bin,
+    draw_central_ac,
+    draw_wardrobe,
+    toggle_wardrobe,
+    update_wardrobe,
+    draw_clock,
+)
+from smart_bedroom.ui import draw_text, draw_hud_bg
 
 
 paused = False
@@ -21,7 +35,7 @@ poster_mode = 0
 def init():
     glClearColor(0.15, 0.15, 0.18, 1.0)
     glEnable(GL_DEPTH_TEST)
-    init_texture()
+    tex.init_texture()
     
     glutPassiveMotionFunc(mouse_look)
     glutSetCursor(GLUT_CURSOR_NONE)
@@ -32,18 +46,18 @@ def display():
     glLoadIdentity()
     apply_camera()
     setup_lighting()
-    draw_room()
-    draw_rug()
-    draw_wardrobe(texture.wood_tex)
+    tex.draw_room()
+    tex.draw_rug()
+    draw_wardrobe(tex.wood_tex)
     draw_window()
-    draw_door(texture.door_tex) 
+    draw_door(tex.door_tex) 
     draw_bed()
     draw_table()
     draw_table_lamp()
     draw_ceiling_lamp()
     update_wardrobe()
-    draw_poster(texture.poster_tex)
-    draw_poster_2()
+    draw_poster(tex.poster_tex)
+    draw_poster_2(tex.poster_tex_2)
     
     draw_plant()
 
@@ -57,7 +71,7 @@ def display():
 
     draw_trash_bin()
 
-    draw_central_ac()
+    draw_central_ac(tex.ac_tex)
 
 
     # =====================
@@ -131,7 +145,6 @@ def keyboard(key, x, y):
 
     if key == b'\x1b': 
         paused = not paused
-        camera.paused = paused
         return
 
     if paused:
