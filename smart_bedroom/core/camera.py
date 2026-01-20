@@ -41,8 +41,11 @@ mouse_sensitivity = 0.15
 ignore_warp = False
 
 
-def mouse_look(x, y):
+def mouse_look(x, y, is_paused=False):
     global last_x, last_y, yaw, pitch, ignore_warp
+    
+    if is_paused:
+        return
 
     if ignore_warp:
         ignore_warp = False
