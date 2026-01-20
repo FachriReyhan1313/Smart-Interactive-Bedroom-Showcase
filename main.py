@@ -55,10 +55,12 @@ from smart_bedroom.objects import (
     draw_clock,
 )
 
+from smart_bedroom.objects.workstation import toggle_pc
+
 # =========================
 # UI
 # =========================
-from smart_bedroom.ui import draw_text, draw_hud_bg
+from smart_bedroom.ui import draw_text, draw_hud_bg, draw_text_centered
 
 
 # =========================
@@ -66,11 +68,63 @@ from smart_bedroom.ui import draw_text, draw_hud_bg
 # =========================
 paused = False
 poster_mode = 0
+pause_menu_selected = 0  # 0 = Resume, 1 = Exit
+mouse_x = 0
+mouse_y = 0
 
 
 # =========================
 # INIT
 # =========================
+def mouse_look_wrapper(x, y):
+    """Track mouse position for pause menu clicks"""
+    global mouse_x, mouse_y
+    mouse_x = x
+    mouse_y = y
+    
+    # Only do mouse look when not paused
+    if not paused:
+        mouse_look(x, y, is_paused=False)
+
+
+def mouse_click(button, state, x, y):
+    """Handle mouse clicks in pause menu"""
+    global paused, pause_menu_selected
+    
+    if not paused or button != GLUT_LEFT_BUTTON or state != GLUT_DOWN:
+        return
+    
+    # Pause menu dimensions (same as in display)
+    w = glutGet(GLUT_WINDOW_WIDTH)
+    h = glutGet(GLUT_WINDOW_HEIGHT)
+    panel_w = 300
+    panel_h = 140
+    px = w // 2 - panel_w // 2
+    py = h // 2 + 60
+    
+    # Convert OpenGL coordinates to screen coordinates (y is flipped)
+    screen_y = h - y
+    
+    # Resume option at py - 65
+    resume_y = py - 65
+    if abs(screen_y - resume_y) < 10 and px < x < px + panel_w:
+        pause_menu_selected = 0
+        paused = False
+        glutSetCursor(GLUT_CURSOR_NONE)  # Hide cursor
+        return
+    
+    # Exit option at py - 90
+    exit_y = py - 90
+    if abs(screen_y - exit_y) < 10 and px < x < px + panel_w:
+        pause_menu_selected = 1
+        try:
+            glutLeaveMainLoop()
+        except:
+            pass
+        import sys
+        sys.exit(0)
+
+
 def init():
     glClearColor(0.15, 0.15, 0.18, 1.0)
     glEnable(GL_DEPTH_TEST)
@@ -78,7 +132,8 @@ def init():
 
     tex.init_texture()
 
-    glutPassiveMotionFunc(mouse_look)
+    glutPassiveMotionFunc(mouse_look_wrapper)
+    glutMouseFunc(mouse_click)
     glutSetCursor(GLUT_CURSOR_NONE)
 
 
@@ -86,6 +141,8 @@ def init():
 # DISPLAY
 # =========================
 def display():
+    global pause_menu_selected
+    
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
 
@@ -144,12 +201,12 @@ def display():
     glDisable(GL_DEPTH_TEST)
     glDisable(GL_LIGHTING)
 
-    draw_hud_bg(8, h - 8, 650, 155, alpha=0.55)
+    draw_hud_bg(8, h - 8, 650, 170, alpha=0.55)
 
     draw_text(15, h - 25, "SMART INTERACTIVE BEDROOM")
     draw_text(15, h - 40, "Kelompok 9 - Komputer Grafik")
     draw_text(15, h - 60, "Move : W A S D | Look : Mouse | Q / E Up Down")
-    draw_text(15, h - 75, "Controls : O Wardrobe | N Day/Night | L Main Lamp | K Bed Lamp")
+    draw_text(15, h - 75, "Controls : O Wardrobe | N Day/Night | L Main Lamp | K Bed Lamp | P PC Power")
 
     draw_text(15, h - 100, "Camera Focus")
     draw_text(25, h - 120, "1 Bed   2 Table   3 Window   4 Wardrobe   5 Door")
@@ -171,9 +228,16 @@ def display():
         draw_hud_bg(px, py, panel_w, panel_h, alpha=0.7)
 
         cx = px + panel_w // 2
-        draw_text(cx - 25, py - 35, "PAUSED")
-        draw_text(cx - 75, py - 65, "ESC Resume")
-        draw_text(cx - 90, py - 90, "Enter to Exit")
+        draw_text_centered(cx, py - 35, "PAUSED")
+        
+        # Resume option
+        resume_text = ">> Resume <<" if pause_menu_selected == 0 else "   Resume   "
+        glColor3f(1.0, 1.0, 1.0)
+        draw_text_centered(cx, py - 65, resume_text)
+        
+        # Exit option
+        exit_text = ">> Exit <<" if pause_menu_selected == 1 else "   Exit   "
+        draw_text_centered(cx, py - 90, exit_text)
 
     glEnable(GL_DEPTH_TEST)
 
@@ -191,32 +255,46 @@ def display():
 is_fullscreen = False
 WINDOWED_SIZE = (900, 600)
 
+
+def mouse_look_wrapper(x, y):
+    """Wrapper to pass paused state to mouse_look"""
+    mouse_look(x, y, is_paused=paused)
+
 paused = False
 poster_mode = 0
 
 def keyboard(key, x, y):
-    global paused, poster_mode, is_fullscreen
+    global paused, poster_mode, is_fullscreen, pause_menu_selected
 
     # =====================
     # TOGGLE PAUSE (ESC)
     # =====================
     if key == b'\x1b':  # ESC
-        paused = not paused
+        if paused:
+            paused = False
+            glutSetCursor(GLUT_CURSOR_NONE)  # Hide cursor when resuming
+        else:
+            paused = True
+            pause_menu_selected = 0  # Reset to Resume option
+            glutSetCursor(GLUT_CURSOR_CROSSHAIR)  # Show cursor for menu
         return
 
     # =====================
     # SAAT PAUSE
     # =====================
     if paused:
-        # ENTER = EXIT PROGRAM
+        # ENTER = SELECT OPTION
         if key == b'\r':  # Enter
-            try:
-                glutLeaveMainLoop()
-            except:
-                pass
-            sys.exit(0)
-
-        # selain ENTER → semua input mati
+            if pause_menu_selected == 0:  # Resume
+                paused = False
+                glutSetCursor(GLUT_CURSOR_NONE)  # Hide cursor
+            else:  # Exit
+                try:
+                    glutLeaveMainLoop()
+                except:
+                    pass
+                import sys
+                sys.exit(0)
         return
 
     # =====================
@@ -273,12 +351,14 @@ def keyboard(key, x, y):
         toggle_main_lamp()
     elif key == b'k':
         toggle_bed_lamp()
+    elif key == b'p':
+        toggle_pc()
 
 
 
 
 def special_key(key, x, y):
-    global is_fullscreen
+    global is_fullscreen, paused, pause_menu_selected
 
     # =====================
     # FULLSCREEN TOGGLE (F11)
@@ -295,9 +375,13 @@ def special_key(key, x, y):
         return
 
     # =====================
-    # BLOK INPUT SAAT PAUSE
+    # PAUSE MENU NAVIGATION
     # =====================
     if paused:
+        if key == GLUT_KEY_UP or key == GLUT_KEY_DOWN:
+            pause_menu_selected = 1 - pause_menu_selected  # Toggle between 0 and 1
+        elif key == GLUT_KEY_RIGHT or key == GLUT_KEY_LEFT:
+            pause_menu_selected = 1 - pause_menu_selected  # Also toggle with left/right
         return
 
     rotate_camera(key)

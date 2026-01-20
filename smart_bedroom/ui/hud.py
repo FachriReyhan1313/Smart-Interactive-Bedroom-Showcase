@@ -2,6 +2,16 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
+# Character width for GLUT_BITMAP_8_BY_13
+CHAR_WIDTH = 8
+
+
+def draw_text_centered(cx, y, text):
+    """Draw text centered at x position"""
+    text_width = len(text) * CHAR_WIDTH
+    x = cx - text_width // 2
+    draw_text(x, y, text)
+
 
 def draw_text(x, y, text):
     window_width = glutGet(GLUT_WINDOW_WIDTH)
