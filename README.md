@@ -1,76 +1,70 @@
 # Smart Interactive Bedroom Showcase
 
-Simulasi **kamar tidur 3D interaktif** menggunakan **Python dan
-PyOpenGL**. Project ini menampilkan sebuah ruangan dengan berbagai objek
-furnitur yang dapat diobservasi secara bebas menggunakan kamera, lengkap
-dengan fitur interaksi dan pencahayaan dinamis.
+Simulasi **kamar tidur 3D interaktif** berbasis **Python & PyOpenGL**
+yang memungkinkan pengguna menjelajahi ruangan secara bebas,
+berinteraksi dengan objek, serta merasakan perubahan pencahayaan siang
+dan malam secara real-time.
 
-Project ini dibuat untuk memenuhi tugas mata kuliah **Komputer Grafik &
-Pengolahan Citra** dengan tujuan memahami konsep dasar grafika komputer
-seperti: - Pemodelan objek 3D - Transformasi - Pencahayaan - Tekstur -
-Interaksi pengguna
+Project ini dikembangkan sebagai tugas mata kuliah:
+
+> **Komputer Grafik & Pengolahan Citra -- Semester 5**
+
+dengan fokus pada penerapan konsep: - Pemodelan objek 3D - Transformasi
+dan koordinat - Pencahayaan (lighting) - Tekstur - Interaksi kamera -
+Collision detection
 
 ------------------------------------------------------------------------
 
-## Fitur Utama
+## Fitur
 
-### 1. Objek 3D Berbasis Primitive
+### Lingkungan 3D
 
-Semua objek dibuat menggunakan primitive OpenGL (cube, quad, cylinder)
-dan diberi tekstur agar terlihat lebih realistis.
+-   Seluruh objek dibuat menggunakan primitive OpenGL (Cube, Quad,
+    Cylinder)
+-   Tidak menggunakan model 3D eksternal
+-   Dilengkapi tekstur untuk meningkatkan realisme
 
-### 2. Collision Detection
+### Sistem Kamera
 
-Kamera tidak dapat menembus dinding dan objek furnitur seperti: - Bed\
-- Wardrobe\
-- Bookshelf\
-- Meja
+-   Pergerakan bebas (first-person style)
+-   Kamera tidak dapat menembus dinding atau furnitur (collision
+    detection)
+-   Fitur fokus otomatis ke objek tertentu
 
-### 3. Pergerakan Kamera Bebas
+### Interaksi Objek
 
-Navigasi ruangan secara bebas menggunakan keyboard.
-
-### 4. Kamera Fokus Objek
-
-Fitur fokus otomatis ke objek tertentu menggunakan tombol angka.
-
-### 5. Interaksi Objek
-
--   Toggle wardrobe (buka/tutup)\
--   Lampu plafon dan lampu tidur\
--   Mode siang dan malam\
--   Gorden\
+-   Buka / tutup wardrobe
+-   Nyalakan / matikan lampu plafon & lampu tidur
+-   Mode siang & malam
+-   Gorden
 -   Power PC
 
-### 6. Mode Siang & Malam
+### Fitur Tambahan
 
-Simulasi pencahayaan siang dan malam.
-
-### 7. Jam Digital Real-Time
-
-Menampilkan waktu sistem secara langsung di dalam scene.
-
-### 8. HUD (Heads-Up Display)
-
-Menampilkan informasi kontrol dan status kamera secara semi-transparan.
+-   Jam digital real-time di dalam scene
+-   HUD semi-transparan (informasi kamera & kontrol)
 
 ------------------------------------------------------------------------
 
 ## Kontrol
 
-### Navigasi Kamera
+### Pergerakan Kamera
 
   Tombol       Fungsi
-  ------------ ---------------------------
-  W A S D      Maju, Mundur, Kiri, Kanan
+  ------------ -----------------------
+  W            Maju
+  S            Mundur
+  A            Kiri
+  D            Kanan
+  Q            Naik
+  E            Turun
   Arrow Keys   Mengubah arah pandang
-  Q / E        Naik / Turun
 
 ### Interaksi
 
   Tombol   Fungsi
-  -------- --------------------
-  O        Toggle Wardrobe
+  -------- -----------------------
+  O        Buka / Tutup Wardrobe
   N        Mode Siang / Malam
   L        Lampu Plafon
   K        Lampu Tidur
@@ -92,30 +86,30 @@ Menampilkan informasi kontrol dan status kamera secara semi-transparan.
   0        Plant
   T        Air Conditioner
   C        Lampu Plafon
-  J        Jam
+  J        Jam Digital
 
 ### Keluar Aplikasi
 
   Tombol       Fungsi
-  ------------ --------
+  ------------ -----------------
   ESC          Pause
-  Klik Mouse   Keluar
+  Klik Mouse   Keluar Aplikasi
 
 ------------------------------------------------------------------------
 
-## Tools & Framework
+## Teknologi
 
--   Python\
--   PyOpenGL\
--   OpenGL (Fixed Function Pipeline)\
--   GLUT\
+-   Python
+-   PyOpenGL
+-   OpenGL (Fixed Function Pipeline)
+-   GLUT
 -   Visual Studio Code
 
 ------------------------------------------------------------------------
 
 ## Cara Menjalankan
 
-1.  Install Python\
+1.  Install Python (minimal 3.x)
 
 2.  Install dependency:
 
@@ -123,7 +117,7 @@ Menampilkan informasi kontrol dan status kamera secara semi-transparan.
     pip install PyOpenGL PyOpenGL_accelerate
     ```
 
-3.  Jalankan program:
+3.  Jalankan aplikasi:
 
     ``` bash
     python main.py
@@ -133,13 +127,13 @@ Menampilkan informasi kontrol dan status kamera secara semi-transparan.
 
 ## Catatan
 
-Project ini tidak menggunakan model 3D eksternal. Seluruh objek dibuat
-menggunakan primitive OpenGL untuk melatih pemahaman konsep dasar
-grafika komputer.
+Project ini dibuat tanpa menggunakan asset 3D eksternal. Semua objek
+dibangun secara procedural menggunakan primitive OpenGL untuk memperkuat
+pemahaman dasar grafika komputer.
 
 ------------------------------------------------------------------------
 
 ## Author
 
-**Fachri Reyhan**\
+Fachri Reyhan\
 Komputer Grafik & Pengolahan Citra -- Semester 5
