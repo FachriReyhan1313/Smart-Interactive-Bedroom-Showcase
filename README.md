@@ -1,48 +1,55 @@
 # Smart Interactive Bedroom Showcase
 
-Simulasi **kamar tidur 3D interaktif** berbasis **Python & PyOpenGL**
-yang memungkinkan pengguna menjelajahi ruangan secara bebas,
-berinteraksi dengan objek, serta merasakan perubahan pencahayaan siang
-dan malam secara real-time.
+Project ini merupakan simulasi **ruangan kamar tidur 3D interaktif**
+yang dibuat menggunakan **Python dan PyOpenGL**. Aplikasi ini
+menampilkan sebuah kamar dengan beberapa objek furnitur yang dapat
+dilihat secara bebas menggunakan kamera, serta dilengkapi dengan fitur
+interaksi sederhana.
 
-Project ini dikembangkan sebagai tugas mata kuliah:
-
-> **Komputer Grafik & Pengolahan Citra -- Semester 5**
-
-dengan fokus pada penerapan konsep: - Pemodelan objek 3D - Transformasi
-dan koordinat - Pencahayaan (lighting) - Tekstur - Interaksi kamera -
-Collision detection
+Project ini dibuat untuk memenuhi tugas mata kuliah **Komputer Grafik &
+Pengolahan Citra**, dengan tujuan memahami konsep dasar grafika komputer
+seperti pemodelan objek 3D, transformasi, pencahayaan, tekstur, dan
+interaksi pengguna.
 
 ------------------------------------------------------------------------
 
 ## Fitur
 
-### Lingkungan 3D
+-   **Objek 3D berbasis primitives**\
+    Semua objek dalam ruangan dibuat menggunakan primitive OpenGL
+    seperti cube, quad, dan cylinder, kemudian diberi tekstur agar
+    terlihat lebih realistis.
 
--   Seluruh objek dibuat menggunakan primitive OpenGL (Cube, Quad,
-    Cylinder)
--   Tidak menggunakan model 3D eksternal
--   Dilengkapi tekstur untuk meningkatkan realisme
+-   **Collision detection**\
+    Kamera tidak dapat menembus dinding ruangan maupun objek furnitur
+    seperti bed, wardrobe, dan bookshelf.
 
-### Sistem Kamera
+-   **Pergerakan kamera bebas**\
+    Pengguna dapat bergerak di dalam ruangan menggunakan keyboard untuk
+    melihat objek dari berbagai sudut.
 
--   Pergerakan bebas (first-person style)
--   Kamera tidak dapat menembus dinding atau furnitur (collision
-    detection)
--   Fitur fokus otomatis ke objek tertentu
+-   **Camera focus ke objek**\
+    Tersedia fitur fokus kamera ke objek tertentu seperti bed, table,
+    door, dan lainnya menggunakan tombol angka.
 
-### Interaksi Objek
+-   **Toggle interaksi objek**
 
--   Buka / tutup wardrobe
--   Nyalakan / matikan lampu plafon & lampu tidur
--   Mode siang & malam
--   Gorden
--   Power PC
+    -   Membuka / menutup wardrobe\
+    -   Menyalakan / mematikan lampu\
+    -   Mengubah mode siang dan malam\
+    -   Mengaktifkan / menonaktifkan gorden
 
-### Fitur Tambahan
+-   **Mode siang dan malam**\
+    Pencahayaan ruangan dapat diubah untuk mensimulasikan kondisi siang
+    dan malam.
 
--   Jam digital real-time di dalam scene
--   HUD semi-transparan (informasi kamera & kontrol)
+-   **Jam digital real-time**\
+    Terdapat jam digital yang menampilkan waktu sistem secara real-time
+    di dalam scene.
+
+-   **HUD (Heads-Up Display)**\
+    Informasi kontrol dan kamera ditampilkan dalam bentuk HUD
+    semi-transparan.
 
 ------------------------------------------------------------------------
 
@@ -50,74 +57,62 @@ Collision detection
 
 ### Pergerakan Kamera
 
-  Tombol       Fungsi
-  ------------ -----------------------
-  W            Maju
-  S            Mundur
-  A            Kiri
-  D            Kanan
-  Q            Naik
-  E            Turun
-  Arrow Keys   Mengubah arah pandang
+-   `W A S D` : Bergerak maju, mundur, kiri, kanan\
+-   `Arrow Keys` : Mengubah arah pandang kamera\
+-   `Q / E` : Naik / turun
 
 ### Interaksi
 
-  Tombol   Fungsi
-  -------- -----------------------
-  O        Buka / Tutup Wardrobe
-  N        Mode Siang / Malam
-  L        Lampu Plafon
-  K        Lampu Tidur
-  P        Power PC
+-   `O` : Toggle wardrobe\
+-   `N` : Mode siang / malam\
+-   `L` : Lampu Plafon\
+-   `K` : Lampu Tidur\
+-   `P` : PC Power
 
-### Fokus Kamera
+### Focus Kamera
 
-  Tombol   Objek
-  -------- -----------------
-  1        Bed
-  2        Table
-  3        Window
-  4        Wardrobe
-  5        Door
-  6        Poster
-  7        Workstation
-  8        Bookshelf
-  9        Trash Bin
-  0        Plant
-  T        Air Conditioner
-  C        Lampu Plafon
-  J        Jam Digital
+-   `1` : Bed\
+-   `2` : Table\
+-   `3` : Window\
+-   `4` : Wardrobe\
+-   `5` : Door\
+-   `6` : Poster / Poster2 / Poster3 / Poster4\
+-   `7` : Workstation\
+-   `8` : Bookshelf\
+-   `9` : Trash Bin\
+-   `0` : Plant\
+-   `T` : Air Conditioner\
+-   `C` : Lampu Plafon\
+-   `J` : Jam
 
-### Keluar Aplikasi
+### Keluar
 
-  Tombol       Fungsi
-  ------------ -----------------
-  ESC          Pause
-  Klik Mouse   Keluar Aplikasi
+-   `ESC` : Pause\
+-   `Mouse Klik` : Keluar dari aplikasi
 
 ------------------------------------------------------------------------
 
-## Teknologi
+## Tools & Framework
 
--   Python
--   PyOpenGL
--   OpenGL (Fixed Function Pipeline)
--   GLUT
+-   Python\
+-   PyOpenGL\
+-   OpenGL (Fixed Function Pipeline)\
+-   GLUT\
 -   Visual Studio Code
 
 ------------------------------------------------------------------------
 
-## Cara Menjalankan
+## Cara Menjalankan Program
 
-1.  Install Python (minimal 3.x)
+1.  Install Python.\
 
-2.  Install dependency:
+2.  Install library yang dibutuhkan:
 
     ``` bash
     pip install PyOpenGL PyOpenGL_accelerate
     ```
 
-3.  Jalankan aplikasi:
+3.  Jalankan program:
 
     ``` bash
     python main.py
@@ -127,9 +122,9 @@ Collision detection
 
 ## Catatan
 
-Project ini dibuat tanpa menggunakan asset 3D eksternal. Semua objek
-dibangun secara procedural menggunakan primitive OpenGL untuk memperkuat
-pemahaman dasar grafika komputer.
+Project ini tidak menggunakan model 3D eksternal. Seluruh objek dibuat
+langsung menggunakan primitive OpenGL untuk melatih pemahaman konsep
+dasar grafika komputer.
 
 ------------------------------------------------------------------------
 
