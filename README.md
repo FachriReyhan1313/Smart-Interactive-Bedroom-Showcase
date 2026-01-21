@@ -34,9 +34,9 @@ interaksi pengguna.
 
 -   **Toggle interaksi objek**
 
-    -   Membuka / menutup wardrobe\
-    -   Menyalakan / mematikan lampu\
-    -   Mengubah mode siang dan malam\
+    -   Membuka / menutup wardrobe
+    -   Menyalakan / mematikan lampu
+    -   Mengubah mode siang dan malam
     -   Mengaktifkan / menonaktifkan gorden
 
 -   **Mode siang dan malam**\
@@ -57,54 +57,54 @@ interaksi pengguna.
 
 ### Pergerakan Kamera
 
--   `W A S D` : Bergerak maju, mundur, kiri, kanan\
--   `Arrow Keys` : Mengubah arah pandang kamera\
+-   `W A S D` : Bergerak maju, mundur, kiri, kanan
+-   `Arrow Keys` : Mengubah arah pandang kamera
 -   `Q / E` : Naik / turun
 
 ### Interaksi
 
--   `O` : Toggle wardrobe\
--   `N` : Mode siang / malam\
--   `L` : Lampu Plafon\
--   `K` : Lampu Tidur\
+-   `O` : Toggle wardrobe
+-   `N` : Mode siang / malam
+-   `L` : Lampu Plafon
+-   `K` : Lampu Tidur
 -   `P` : PC Power
 
 ### Focus Kamera
 
--   `1` : Bed\
--   `2` : Table\
--   `3` : Window\
--   `4` : Wardrobe\
--   `5` : Door\
--   `6` : Poster / Poster2 / Poster3 / Poster4\
--   `7` : Workstation\
--   `8` : Bookshelf\
--   `9` : Trash Bin\
--   `0` : Plant\
--   `T` : Air Conditioner\
--   `C` : Lampu Plafon\
+-   `1` : Bed
+-   `2` : Table
+-   `3` : Window
+-   `4` : Wardrobe
+-   `5` : Door
+-   `6` : Poster / Poster2 / Poster3 / Poster4
+-   `7` : Workstation
+-   `8` : Bookshelf
+-   `9` : Trash Bin
+-   `0` : Plant
+-   `T` : Air Conditioner
+-   `C` : Lampu Plafon
 -   `J` : Jam
 
 ### Keluar
 
--   `ESC` : Pause\
+-   `ESC` : Pause
 -   `Mouse Klik` : Keluar dari aplikasi
 
 ------------------------------------------------------------------------
 
 ## Tools & Framework
 
--   Python\
--   PyOpenGL\
--   OpenGL (Fixed Function Pipeline)\
--   GLUT\
+-   Python
+-   PyOpenGL
+-   OpenGL (Fixed Function Pipeline)
+-   GLUT
 -   Visual Studio Code
 
 ------------------------------------------------------------------------
 
 ## Cara Menjalankan Program
 
-1.  Install Python.\
+1.  Install Python.
 
 2.  Install library yang dibutuhkan:
 
