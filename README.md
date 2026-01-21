@@ -48,7 +48,8 @@ Project ini dibuat untuk memenuhi tugas mata kuliah **Komputer Grafik & Pengolah
 - `O` : Toggle wardrobe  
 - `N` : Mode siang / malam  
 - `L` : Lampu Plafon
-- `K` : Lampu Tidur  
+- `K` : Lampu Tidur
+- `P` : PC Power
    
 
 ### Focus Kamera
